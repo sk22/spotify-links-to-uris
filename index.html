@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Spotify Links to URIs</title>
+    <style>
+      * { box-sizing: border-box; }
+      textarea { width: 100%; flex-grow: 1; }
+      button { margin-top: 0.5rem; }
+      html { height: 100%; }
+      body { margin: 0; padding: 1rem; }
+      body {
+        height: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea name="input" id="input"></textarea>
+    <button id="convert">Convert</button>
+    <script type="module">
+      import toURI from './lib/spotify-link-to-uri.mjs'
+      const input = document.getElementById('input')
+      const button = document.getElementById('convert')
+
+      const toURIs = linksText =>
+        linksText.split('\n').map(toURI)
+
+      const updateText = () => {
+        input.value = toURIs(input.value).join('\n')
+      }
+
+      button.addEventListener('click', updateText)
+      input.addEventListener('input', updateText)
+    </script>
+  </body>
+</html>
